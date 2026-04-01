@@ -428,6 +428,18 @@
                 font-size: 0.9rem;
             }
         }
+
+        /* ── RSVP ── */
+        #rsvp { padding: 60px 20px; background: rgba(0,0,0,0.3); }
+        #rsvp .section-title { text-align:center; margin-bottom:10px; }
+        .rsvp-form { max-width: 500px; margin: 0 auto; background: rgba(255,255,255,0.08); border-radius: 16px; padding: 32px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display:block; margin-bottom:6px; font-size:.9rem; opacity:.85; }
+        .form-group input,
+        .form-group select,
+        .form-group textarea { width:100%; padding:12px 14px; border:1px solid rgba(255,255,255,0.25); border-radius:8px; background:rgba(255,255,255,0.1); color:inherit; font-size:1rem; font-family:inherit; }
+        .form-group textarea { min-height:80px; resize:vertical; }
+        #successMessage { display:none; text-align:center; padding:24px; background:rgba(16,185,129,.15); border:1px solid #10b981; border-radius:12px; color:#6ee7b7; font-size:1.05rem; margin-top:16px; }
     </style>
 </head>
 <body>
@@ -577,6 +589,55 @@
                class="btn btn-whatsapp">
                 <i class="fab fa-whatsapp"></i> Confirmar por WhatsApp
             </a>
+        </section>
+
+        <!-- RSVP -->
+        <section id="rsvp">
+            <h2 class="section-title">Confirma tu Asistencia</h2>
+            <p style="text-align:center;margin-bottom:28px;opacity:.8;">
+                Por favor confirma antes del <span id="confirmacionLimite">11 de abril de 2026</span>
+            </p>
+            <div id="personalizedWelcome" style="display:none;text-align:center;margin-bottom:24px;padding:20px;background:rgba(255,255,255,0.07);border-radius:12px;">
+                <p id="guestWelcomeText" style="font-size:1.1rem;margin-bottom:8px;"></p>
+                <p id="guestPassesText" style="opacity:.75;font-size:.95rem;"></p>
+            </div>
+            <div class="rsvp-form">
+                <form id="rsvpForm">
+                    <div class="form-group">
+                        <label for="name">Nombre Completo *</label>
+                        <input type="text" id="name" name="name" required placeholder="Tu nombre completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Número de personas *</label>
+                        <select id="guests" name="guests" required>
+                            <option value="">Selecciona...</option>
+                            <option value="1">1 persona</option>
+                            <option value="2">2 personas</option>
+                            <option value="3">3 personas</option>
+                            <option value="4">4 personas</option>
+                            <option value="5">5 personas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="attendance">¿Confirmas tu asistencia? *</label>
+                        <select id="attendance" name="attendance" required>
+                            <option value="">Selecciona...</option>
+                            <option value="si">Sí, asistiré</option>
+                            <option value="no">No podré asistir</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensaje (Opcional)</label>
+                        <textarea id="message" name="message" placeholder="Déjame un mensaje..."></textarea>
+                    </div>
+                    <div style="text-align:center;">
+                        <button type="submit" style="background:var(--gold,#c9a84c);color:#1a1a2e;border:none;padding:14px 36px;border-radius:25px;font-size:1rem;font-weight:bold;cursor:pointer;">Enviar Confirmación</button>
+                    </div>
+                </form>
+                <div id="successMessage">
+                    ✓ ¡Gracias! Tu confirmación ha sido registrada.
+                </div>
+            </div>
         </section>
 
         <!-- Footer -->
