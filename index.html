@@ -440,9 +440,33 @@
         .form-group textarea { width:100%; padding:12px 14px; border:1px solid rgba(255,255,255,0.25); border-radius:8px; background:rgba(255,255,255,0.1); color:inherit; font-size:1rem; font-family:inherit; }
         .form-group textarea { min-height:80px; resize:vertical; }
         #successMessage { display:none; text-align:center; padding:24px; background:rgba(16,185,129,.15); border:1px solid #10b981; border-radius:12px; color:#6ee7b7; font-size:1.05rem; margin-top:16px; }
+        .splash-screen { position:fixed; inset:0; z-index:10000; background:linear-gradient(135deg,#4a148c 0%,#6a1b9a 100%); display:flex; align-items:center; justify-content:center; transition:opacity .8s ease, visibility .8s ease; }
+        .splash-screen.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+        .splash-content { text-align:center; padding:2rem; }
+        .splash-icon { font-size:3rem; animation:splashFloat 3s ease-in-out infinite; }
+        @keyframes splashFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        .splash-subtitle { font-size:.85rem; letter-spacing:.35em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-top:1.5rem; }
+        .splash-names { font-size:clamp(2.2rem,7vw,4rem); color:#c8a2d0; margin:.5rem 0; font-family:'Cormorant Garamond',serif; }
+        .splash-divider { width:120px; height:1px; background:linear-gradient(90deg,transparent,#c8a2d0,transparent); margin:1rem auto; }
+        .splash-date { font-size:.95rem; letter-spacing:.15em; color:rgba(255,255,255,0.5); }
+        .splash-btn { display:inline-block; margin-top:2.5rem; padding:1rem 3rem; background:transparent; border:2px solid #c8a2d0; border-radius:50px; color:#c8a2d0; font-size:1rem; font-weight:600; letter-spacing:.1em; cursor:pointer; transition:all .3s; }
+        .splash-btn:hover { background:#c8a2d0; color:#4a148c; transform:translateY(-3px); }
+        .splash-hint { font-size:.75rem; color:rgba(255,255,255,0.3); margin-top:1rem; }
     </style>
 </head>
 <body>
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <div class="splash-icon">👑</div>
+            <p class="splash-subtitle">Estás invitado(a) a mis</p>
+            <h1 class="splash-names">Shelyn Guadalupe</h1>
+            <div class="splash-divider"></div>
+            <p class="splash-date">25 de Abril, 2026</p>
+            <button class="splash-btn" id="openInvitation">Abrir Invitación</button>
+            <p class="splash-hint">Toca para abrir</p>
+        </div>
+    </div>
+
     <!-- Floating Flowers -->
     <div class="floating-flower" style="left: 10%; animation-delay: 0s;">❀</div>
     <div class="floating-flower" style="left: 30%; animation-delay: 3s;">✿</div>
@@ -693,16 +717,18 @@
             }
         }
 
-        // Autoplay al primer toque del usuario
-        document.addEventListener('click', function startAudio() {
-            if (!musicPlaying) {
+        // Splash screen
+        const splashBtn = document.getElementById('openInvitation');
+        const splash = document.getElementById('splashScreen');
+        if (splashBtn && splash) {
+            splashBtn.addEventListener('click', () => {
+                splash.classList.add('hidden');
                 audio.play().then(() => {
                     musicPlaying = true;
                     document.getElementById('musicBtn').textContent = '🔇';
                 }).catch(() => {});
-            }
-            document.removeEventListener('click', startAudio);
-        }, { once: true });
+            });
+        }
     </script>
 
     <script src="visitas.js?v=1"></script>
