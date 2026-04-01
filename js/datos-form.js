@@ -39,35 +39,81 @@
       ]
     },
 
+    // ── MADRINAS XV AÑOS ────────────────────────────────────────────────
     madrinas: {
-      icon: '🎀', label: 'Madrinas de Ceremonia',
+      icon: '🎀', label: 'Madrinas de XV Años',
       tiposEvento: ['xv'],
       campos: [
-        { key:'vestido',      label:'👗 Vestido',         type:'text', ph:'Nombre' },
-        { key:'zapatillas',   label:'👠 Zapatillas',      type:'text', ph:'Nombre' },
-        { key:'corona',       label:'👑 Corona',          type:'text', ph:'Nombre' },
-        { key:'anillo',       label:'💍 Anillo',          type:'text', ph:'Nombre' },
-        { key:'ramo',         label:'💐 Ramo',            type:'text', ph:'Nombre' },
-        { key:'ultima_muneca',label:'🪆 Última muñeca',   type:'text', ph:'Nombre' },
-        { key:'biblia_misal', label:'📖 Biblia/Misal',    type:'text', ph:'Nombre' },
-        { key:'rosario',      label:'📿 Rosario',         type:'text', ph:'Nombre' },
-        { key:'cojin',        label:'🛋️ Cojín',           type:'text', ph:'Nombre' },
-        { key:'maquillaje',   label:'💄 Maquillaje',      type:'text', ph:'Nombre' },
-        { key:'peinado',      label:'💇 Peinado',         type:'text', ph:'Nombre' },
-        { key:'unas',         label:'💅 Uñas',            type:'text', ph:'Nombre' },
-        { key:'aretes',       label:'👂 Aretes',          type:'text', ph:'Nombre' },
-        { key:'collar',       label:'📿 Collar',          type:'text', ph:'Nombre' },
-        { key:'pulsera',      label:'⌚ Pulsera',         type:'text', ph:'Nombre' },
-        { key:'pastel',       label:'🎂 Pastel',          type:'text', ph:'Nombre' },
-        { key:'brindis',      label:'🥂 Brindis',         type:'text', ph:'Nombre' },
-        { key:'vals',         label:'💃 Vals',            type:'text', ph:'Nombre' },
-        { key:'recuerdos',    label:'🎁 Recuerdos',       type:'text', ph:'Nombre' },
-        { key:'centros_mesa', label:'🌸 Centros de mesa', type:'text', ph:'Nombre' },
-        { key:'invitaciones', label:'💌 Invitaciones',    type:'text', ph:'Nombre' },
-        { key:'foto_video',   label:'📸 Foto/Video',      type:'text', ph:'Nombre' },
-        { key:'musica_dj',    label:'🎵 DJ/Música',       type:'text', ph:'Nombre' },
-        { key:'decoracion',   label:'🎨 Decoración',      type:'text', ph:'Nombre' },
+        // Arreglo personal
+        { key:'maquillaje',   label:'💄 Maquillaje',        type:'text', ph:'Nombre' },
+        { key:'peinado',      label:'💇 Peinado',           type:'text', ph:'Nombre' },
+        { key:'unas',         label:'💅 Uñas',              type:'text', ph:'Nombre' },
+        // Accesorios y vestuario
+        { key:'vestido',      label:'👗 Vestido',           type:'text', ph:'Nombre' },
+        { key:'zapatillas',   label:'👠 Zapatillas',        type:'text', ph:'Nombre' },
+        { key:'corona',       label:'👑 Corona',            type:'text', ph:'Nombre' },
+        { key:'anillo',       label:'💍 Anillo',            type:'text', ph:'Nombre' },
+        { key:'aretes',       label:'👂 Aretes',            type:'text', ph:'Nombre' },
+        { key:'collar',       label:'📿 Collar',            type:'text', ph:'Nombre' },
+        { key:'pulsera',      label:'⌚ Pulsera',           type:'text', ph:'Nombre' },
+        { key:'ramo',         label:'💐 Ramo',              type:'text', ph:'Nombre' },
+        // Ceremonia religiosa
+        { key:'biblia_misal', label:'📖 Biblia/Misal',      type:'text', ph:'Nombre' },
+        { key:'rosario',      label:'📿 Rosario',           type:'text', ph:'Nombre' },
+        { key:'cojin',        label:'🛋️ Cojín',             type:'text', ph:'Nombre' },
+        // Solo XV años
+        { key:'ultima_muneca',label:'🪆 Última muñeca',     type:'text', ph:'Nombre' },
+        // Recepción / fiesta
+        { key:'pastel',       label:'🎂 Pastel',            type:'text', ph:'Nombre' },
+        { key:'brindis',      label:'🥂 Brindis',           type:'text', ph:'Nombre' },
+        { key:'vals',         label:'💃 Vals',              type:'text', ph:'Nombre' },
+        { key:'recuerdos',    label:'🎁 Recuerdos',         type:'text', ph:'Nombre' },
+        { key:'centros_mesa', label:'🌸 Centros de mesa',   type:'text', ph:'Nombre' },
+        { key:'invitaciones', label:'💌 Invitaciones',      type:'text', ph:'Nombre' },
+        { key:'foto_video',   label:'📸 Foto/Video',        type:'text', ph:'Nombre' },
+        { key:'musica_dj',    label:'🎵 DJ/Música',         type:'text', ph:'Nombre' },
+        { key:'decoracion',   label:'🎨 Decoración',        type:'text', ph:'Nombre' },
       ]
+    },
+
+    // ── MADRINAS BODA ────────────────────────────────────────────────────
+    madrinas_boda: {
+      icon: '🎀', label: 'Madrinas de Boda',
+      tiposEvento: ['boda'],
+      campos: [
+        // Arreglo personal novia
+        { key:'maquillaje',   label:'💄 Maquillaje de novia',    type:'text', ph:'Nombre' },
+        { key:'peinado',      label:'💇 Peinado de novia',       type:'text', ph:'Nombre' },
+        // Ceremonia religiosa
+        { key:'lazo',         label:'🪢 Lazo',                   type:'text', ph:'Nombre' },
+        { key:'arras',        label:'💰 Arras',                  type:'text', ph:'Nombre' },
+        { key:'cojin_anillos',label:'💍 Cojín de anillos',       type:'text', ph:'Nombre' },
+        { key:'velo',         label:'👰 Velo',                   type:'text', ph:'Nombre' },
+        { key:'biblia_misal', label:'📖 Biblia/Misal',           type:'text', ph:'Nombre' },
+        { key:'ramo_novia',   label:'💐 Ramo de la novia',       type:'text', ph:'Nombre' },
+        { key:'flores_templo',label:'🌺 Flores del templo',      type:'text', ph:'Nombre' },
+        // Recepción
+        { key:'pastel',       label:'🎂 Pastel',                 type:'text', ph:'Nombre' },
+        { key:'brindis',      label:'🥂 Brindis',                type:'text', ph:'Nombre' },
+        { key:'mesa_dulces',  label:'🍬 Mesa de dulces',         type:'text', ph:'Nombre' },
+        { key:'recuerdos',    label:'🎁 Recuerdos',              type:'text', ph:'Nombre' },
+        { key:'centros_mesa', label:'🌸 Centros de mesa',        type:'text', ph:'Nombre' },
+        { key:'musica_dj',    label:'🎵 DJ/Música',              type:'text', ph:'Nombre' },
+        { key:'decoracion',   label:'🎨 Decoración',             type:'text', ph:'Nombre' },
+        { key:'foto_video',   label:'📸 Foto/Video',             type:'text', ph:'Nombre' },
+        // Legal
+        { key:'testigo_novia',label:'⚖️ Testigo de la novia',   type:'text', ph:'Nombre' },
+        { key:'testigo_novio',label:'⚖️ Testigo del novio',     type:'text', ph:'Nombre' },
+      ]
+    },
+
+    // ── MADRINAS / PADRINOS ADICIONALES (ambos tipos) ───────────────────
+    madrinas_extra: {
+      icon: '➕', label: 'Madrinas / Padrinos adicionales',
+      tiposEvento: ['xv','boda','bautizo'],
+      tipo: 'extras',   // rol libre + nombre libre
+      ph_rol:    'Ej: Madrina de flores, Padrino de mesa',
+      ph_nombre: 'Nombre completo',
     },
 
     chambelanes: {
@@ -268,10 +314,9 @@
         if (d[sec.keyCantidad] === 0 || (d[sec.keyLista]||[]).length > 0) llenos++;
         return;
       }
-      if (sec.tipo === 'familiares') {
+      if (sec.tipo === 'familiares' || sec.tipo === 'extras') {
         total++;
         const d = configData[secKey] || {};
-        // lista vacía explícita (guardada con []) también cuenta como resuelto
         if (Array.isArray(d.lista)) llenos++;
         return;
       }
@@ -300,6 +345,15 @@
         const lista = (configData[secKey]||{}).lista || [];
         if (lista.length) {
           items.push({ key:'_fam', label: sec.label, val: lista.map(f=>`${f.parentesco}: ${f.nombre}`).join(' · '), editable: false });
+        } else if (Array.isArray((configData[secKey]||{}).lista)) {
+          items.push({ key:'_fam', label: sec.label, val: 'N/A', editable: false });
+        }
+      } else if (sec.tipo === 'extras') {
+        const lista = (configData[secKey]||{}).lista || [];
+        if (lista.length) {
+          items.push({ key:'_ext', label: sec.label, val: lista.map(f=>`${f.rol}: ${f.nombre}`).join(' · '), editable: false });
+        } else if (Array.isArray((configData[secKey]||{}).lista)) {
+          items.push({ key:'_ext', label: sec.label, val: 'N/A', editable: false });
         }
       } else {
         (sec.campos||[]).forEach(c => {
@@ -345,6 +399,7 @@
         return;
       }
       if (sec.tipo === 'familiares') { hayVacios = true; html += renderFamiliaresSection(secKey, sec); return; }
+      if (sec.tipo === 'extras')    { html += renderExtrasSection(secKey, sec); return; }
       const camposFiltrados = (sec.campos || []).filter(c => {
         if (c.tiposEvento && !c.tiposEvento.includes(eventoTipo)) return false;
         return getVal(secKey, c.key) === null;
@@ -543,6 +598,28 @@
       </div>`;
   }
 
+  /** Extras: madrina/padrino con rol libre + nombre libre */
+  function renderExtrasSection(secKey, sec) {
+    const lista = (configData[secKey] || {}).lista || [];
+    let itemsHTML = lista.map((f,i) => `
+      <div class="df-familiar-item" data-idx="${i}">
+        <input type="text" class="df-input df-fam-par" style="flex:0 0 200px" placeholder="${sec.ph_rol}" value="${(f.rol||'').replace(/"/g,'&quot;')}">
+        <input type="text" class="df-input df-fam-nom" placeholder="${sec.ph_nombre}" value="${(f.nombre||'').replace(/"/g,'&quot;')}">
+        <button class="df-btn-rem" onclick="this.closest('.df-familiar-item').remove()">✕</button>
+      </div>`).join('');
+    return `
+      <div class="df-section" id="sec-${secKey}">
+        <h2 class="df-sec-title">${sec.icon} ${sec.label}</h2>
+        <p class="df-hint" style="margin-bottom:1rem">Agrega madrinas o padrinos con un rol personalizado que no esté en la lista de arriba</p>
+        <div id="list-${secKey}">${itemsHTML}</div>
+        <button class="df-btn-add" onclick="window._DFaddExtra('${secKey}','${(sec.ph_rol||'').replace(/'/g,"\\'")}','${(sec.ph_nombre||'').replace(/'/g,"\\'")}')">+ Agregar madrina / padrino</button>
+        <span class="df-status" id="st-${secKey}"></span>
+        <div style="margin-top:.8rem">
+          <button class="df-btn-save" onclick="window._DFsaveExtras('${secKey}')">💾 Guardar</button>
+        </div>
+      </div>`;
+  }
+
   /* ═══════════════════════════════════════════════════════════════════
    * LISTENERS
    * ═══════════════════════════════════════════════════════════════════ */
@@ -628,6 +705,27 @@
     div.className = 'df-familiar-item';
     div.innerHTML = `<select class="df-input df-fam-par" style="flex:0 0 150px"><option value="">Parentesco</option>${opciones}</select><input type="text" class="df-input df-fam-nom" placeholder="Nombre completo"><button class="df-btn-rem" onclick="this.closest('.df-familiar-item').remove()">✕</button>`;
     document.getElementById(`list-${secKey}`).appendChild(div);
+  };
+
+  window._DFaddExtra = function(secKey, phRol, phNombre) {
+    const div = document.createElement('div');
+    div.className = 'df-familiar-item';
+    div.innerHTML = `<input type="text" class="df-input df-fam-par" style="flex:0 0 200px" placeholder="${phRol}"><input type="text" class="df-input df-fam-nom" placeholder="${phNombre}"><button class="df-btn-rem" onclick="this.closest('.df-familiar-item').remove()">✕</button>`;
+    document.getElementById(`list-${secKey}`).appendChild(div);
+  };
+
+  window._DFsaveExtras = async function(secKey) {
+    const items = [...document.querySelectorAll(`#list-${secKey} .df-familiar-item`)].map(item => ({
+      rol:    item.querySelector('.df-fam-par').value.trim(),
+      nombre: item.querySelector('.df-fam-nom').value.trim()
+    })).filter(f => f.nombre);
+    setStatus(`st-${secKey}`, 'saving');
+    try {
+      await upsertSeccion(secKey, { lista: items });
+      await notificarAdmin(secKey, ['lista']);
+      actualizarProgreso();
+      setStatus(`st-${secKey}`, 'saved');
+    } catch(e) { setStatus(`st-${secKey}`, 'error'); }
   };
 
   window._DFsaveFamiliares = async function(secKey) {
