@@ -51,6 +51,27 @@
                         <span class="stat-count" id="countSinClasificar">0</span>
                     </div>
                 </div>
+                <div class="stat-card ampliacion" style="border-color:#a855f7;">
+                    <span class="stat-icon">🖼️</span>
+                    <div class="stat-info">
+                        <h3>Ampliación</h3>
+                        <span class="stat-count" id="countAmpliacion">0</span>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-color:#f59e0b;">
+                    <span class="stat-icon">📦</span>
+                    <div class="stat-info">
+                        <h3>Caja Fotos</h3>
+                        <span class="stat-count" id="countCajaFotos">—</span>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-color:#06b6d4;">
+                    <span class="stat-icon">💾</span>
+                    <div class="stat-info">
+                        <h3>Caja USB</h3>
+                        <span class="stat-count" id="countCajaUsb">—</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Aviso costo adicional (aparece si se superan las 100 fotos) -->
@@ -64,6 +85,9 @@
                 <button class="btn btn-filter filter-invitacion" id="btnFilterInvitacion" data-filter="invitacion">Invitación</button>
                 <button class="btn btn-filter filter-descartada" id="btnFilterDescartada" data-filter="descartada">Descartadas</button>
                 <button class="btn btn-filter filter-sin-clasificar" id="btnFilterSinClasificar" data-filter="sin-clasificar">Sin Clasificar</button>
+                <button class="btn btn-filter" id="btnFilterAmpliacion" data-filter="ampliacion" style="border-color:#a855f7;color:#a855f7;">🖼️ Ampliación</button>
+                <button class="btn btn-filter" id="btnFilterCajaFotos" data-filter="caja_fotos" style="border-color:#f59e0b;color:#f59e0b;">📦 Caja Fotos</button>
+                <button class="btn btn-filter" id="btnFilterCajaUsb" data-filter="caja_usb" style="border-color:#06b6d4;color:#06b6d4;">💾 Caja USB</button>
             </div>
 
             <div class="action-buttons secondary">
@@ -116,6 +140,26 @@
                         <button class="option-btn descartada" data-category="descartada">
                             <span class="option-icon">❌</span>
                             <span class="option-text">Descartar</span>
+                            <span class="option-check">✓</span>
+                        </button>
+
+                        <button class="option-btn" data-category="ampliacion" style="border-color:#a855f7;">
+                            <span class="option-icon">🖼️</span>
+                            <span class="option-text">Ampliación 60×80</span>
+                            <span class="option-check">✓</span>
+                        </button>
+
+                        <button class="option-btn" data-category="caja_fotos" data-exclusive="true" style="border-color:#f59e0b;">
+                            <span class="option-icon">📦</span>
+                            <span class="option-text">Portada Caja Fotos</span>
+                            <span class="option-note" style="font-size:.7rem;opacity:.7;">solo 1 foto</span>
+                            <span class="option-check">✓</span>
+                        </button>
+
+                        <button class="option-btn" data-category="caja_usb" data-exclusive="true" style="border-color:#06b6d4;">
+                            <span class="option-icon">💾</span>
+                            <span class="option-text">Portada Caja USB</span>
+                            <span class="option-note" style="font-size:.7rem;opacity:.7;">solo 1 foto</span>
                             <span class="option-check">✓</span>
                         </button>
                     </div>

@@ -145,7 +145,7 @@ async function loadSelections(isPoll = false) {
         if (!evento_id) { sbDisponible = false; return; }
 
         const r = await fetch(
-            `${SUPABASE_URL}/rest/v1/selecciones?evento_id=eq.${evento_id}&select=foto_index,impresion,invitacion,descartada`,
+            `${SUPABASE_URL}/rest/v1/selecciones?evento_id=eq.${evento_id}&select=foto_index,impresion,invitacion,descartada,ampliacion,datos`,
             { headers: SB_HEADERS }
         );
         if (!r.ok) throw new Error(r.status);
@@ -153,15 +153,20 @@ async function loadSelections(isPoll = false) {
 
         const sb = {};
         rows.forEach(row => {
-            if (row.impresion || row.invitacion || row.descartada)
-                sb[row.foto_index] = { impresion: row.impresion, invitacion: row.invitacion, descartada: row.descartada };
+            const d = row.datos || {};
+            if (row.impresion || row.invitacion || row.descartada || row.ampliacion || d.caja_fotos || d.caja_usb)
+                sb[row.foto_index] = {
+                    impresion: row.impresion, invitacion: row.invitacion,
+                    descartada: row.descartada, ampliacion: row.ampliacion,
+                    caja_fotos: d.caja_fotos || false, caja_usb: d.caja_usb || false
+                };
         });
 
-        if (!isPoll) {
+            if (!isPoll) {
             // Carga inicial: merge y migrar localStorage a Supabase para que otros lo vean
             const merged = {...sb};
             Object.entries(photoSelections).forEach(([idx, sel]) => {
-                if (sel.impresion || sel.invitacion || sel.descartada) merged[idx] = sel;
+                if (sel.impresion || sel.invitacion || sel.descartada || sel.ampliacion || sel.caja_fotos || sel.caja_usb) merged[idx] = sel;
             });
             photoSelections = merged;
             if (Object.keys(photoSelections).length > 0) {
@@ -198,7 +203,9 @@ async function sbSyncSelections() {
     if (!evento_id) return;
     const rows = Object.entries(snapshot).map(([idx, sel]) => ({
         evento_id, session_id: SESSION_ID, foto_index: parseInt(idx),
-        impresion: sel.impresion || false, invitacion: sel.invitacion || false, descartada: sel.descartada || false,
+        impresion: sel.impresion || false, invitacion: sel.invitacion || false,
+        descartada: sel.descartada || false, ampliacion: sel.ampliacion || false,
+        datos: { caja_fotos: sel.caja_fotos || false, caja_usb: sel.caja_usb || false },
     }));
     if (rows.length === 0) return;
     await fetch(`${SUPABASE_URL}/rest/v1/selecciones?on_conflict=evento_id,foto_index`, {
@@ -285,16 +292,18 @@ async function clearAllSelections() {
 // ========================================
 function getStats() {
     const stats = {
-        impresion: 0,
-        invitacion: 0,
-        descartada: 0,
+        impresion: 0, invitacion: 0, descartada: 0, ampliacion: 0,
+        caja_fotos: null, caja_usb: null,
         sinClasificar: photos.length
     };
 
-    Object.values(photoSelections).forEach(selection => {
-        if (selection.impresion) stats.impresion++;
+    Object.entries(photoSelections).forEach(([idx, selection]) => {
+        if (selection.impresion)  stats.impresion++;
         if (selection.invitacion) stats.invitacion++;
         if (selection.descartada) stats.descartada++;
+        if (selection.ampliacion) stats.ampliacion++;
+        if (selection.caja_fotos) stats.caja_fotos = parseInt(idx);
+        if (selection.caja_usb)   stats.caja_usb   = parseInt(idx);
     });
 
     stats.sinClasificar = photos.length - Object.keys(photoSelections).length;
@@ -310,6 +319,9 @@ function updateStats() {
     document.getElementById('countInvitacion').textContent = stats.invitacion;
     document.getElementById('countDescartada').textContent = stats.descartada;
     document.getElementById('countSinClasificar').textContent = stats.sinClasificar;
+    document.getElementById('countAmpliacion').textContent = stats.ampliacion;
+    document.getElementById('countCajaFotos').textContent = stats.caja_fotos !== null ? `#${stats.caja_fotos + 1}` : '—';
+    document.getElementById('countCajaUsb').textContent   = stats.caja_usb   !== null ? `#${stats.caja_usb   + 1}` : '—';
 
     const fotosAdicionales = Math.max(0, stats.impresion - LIMITES.impresion);
     const costoExtra = fotosAdicionales * COSTO_FOTO_ADICIONAL;
@@ -667,6 +679,18 @@ function saveModalSelection() {
         if (isSelected) hasAnySelection = true;
     });
 
+    // Radio behavior: caja_fotos y caja_usb solo pueden estar en 1 foto
+    ['caja_fotos', 'caja_usb'].forEach(excl => {
+        if (selectedCategories[excl]) {
+            Object.keys(photoSelections).forEach(idx => {
+                if (parseInt(idx) !== currentPhotoIndex && photoSelections[idx][excl]) {
+                    photoSelections[idx][excl] = false;
+                    updateCard(parseInt(idx));
+                }
+            });
+        }
+    });
+
     if (hasAnySelection) {
         photoSelections[currentPhotoIndex] = selectedCategories;
     } else {
@@ -788,6 +812,20 @@ function showToast(message, type = 'success') {
 document.addEventListener('DOMContentLoaded', () => {
     renderGallery();
     setupLazyLoad();
+
+    // Sugerir fotos si aún no hay selecciones guardadas
+    const SUGERENCIAS = {
+        ampliacion: 45,   // DSC_4963 — retrato a media sesión
+        caja_fotos: 5,    // DJI drone — foto aérea para portada de caja
+        caja_usb:   80,   // DSC_4999 — otro retrato elegante
+    };
+    if (Object.keys(photoSelections).length === 0) {
+        Object.entries(SUGERENCIAS).forEach(([cat, idx]) => {
+            if (!photoSelections[idx]) photoSelections[idx] = {};
+            photoSelections[idx][cat] = true;
+        });
+    }
+
     updateStats();
     updateFilterButtons();
     loadSelections();
