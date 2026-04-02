@@ -36,10 +36,19 @@
 
     padrinos_honor: {
       icon: '🤝', label: 'Padrinos de Honor',
-      tiposEvento: ['xv','boda','bautizo'],
+      tiposEvento: ['xv','bautizo','cumpleanos'],
       campos: [
         { key:'padrino', label:'Padrino de honor', type:'text', ph:'Nombre completo' },
         { key:'madrina', label:'Madrina de honor', type:'text', ph:'Nombre completo' },
+      ]
+    },
+
+    padrinos_novios: {
+      icon: '🤝', label: 'Padrinos de los Novios',
+      tiposEvento: ['boda'],
+      campos: [
+        { key:'padrino', label:'Padrino',        type:'text', ph:'Nombre completo' },
+        { key:'madrina', label:'Madrina',         type:'text', ph:'Nombre completo' },
       ]
     },
 
@@ -133,6 +142,16 @@
     damas: {
       icon: '👗', label: 'Damas de Honor',
       tiposEvento: ['xv'],
+      tipo: 'array',
+      keyLista: 'nombres',
+      keyCantidad: 'cantidad',
+      phItem: 'Nombre de la dama',
+      opciones: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+    },
+
+    damas_boda: {
+      icon: '👗', label: 'Damas de la Novia',
+      tiposEvento: ['boda'],
       tipo: 'array',
       keyLista: 'nombres',
       keyCantidad: 'cantidad',
