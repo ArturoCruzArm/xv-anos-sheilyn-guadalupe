@@ -180,7 +180,17 @@ async function loadSelections(isPoll = false) {
         }
 
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(photoSelections)); } catch(e) {}
-        renderGallery(); setupLazyLoad(); updateStats(); updateFilterButtons();
+        if (isPoll) {
+            const oldSels = {};
+            try { Object.assign(oldSels, JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')); } catch(e) {}
+            const allIdx = new Set([...Object.keys(sb), ...Object.keys(oldSels)].map(Number));
+            allIdx.forEach(idx => {
+                if (JSON.stringify(oldSels[idx] || {}) !== JSON.stringify(sb[idx] || {})) updateCard(idx);
+            });
+            updateStats(); updateFilterButtons();
+        } else {
+            renderGallery(); setupLazyLoad(); updateStats(); updateFilterButtons();
+        }
     } catch(e) {
         console.warn('[Supabase] Usando localStorage:', e.message);
         sbDisponible = false;
@@ -524,6 +534,15 @@ function updateFilterButtons() {
     if (btnSinClasificar) btnSinClasificar.textContent = `Sin Clasificar (${stats.sinClasificar})`;
 }
 
+// ── Preload pool ──
+const _preloadCache = new Map();
+function _preloadImg(url) {
+    if (_preloadCache.has(url)) return;
+    const img = new Image();
+    img.src = url;
+    _preloadCache.set(url, img);
+}
+
 // ========================================
 // MODAL FUNCTIONS
 // ========================================
@@ -554,6 +573,11 @@ function openModal(index) {
 
     modalOpen = true;
     document.body.style.overflow = 'hidden';
+
+    // Precargar anterior y siguiente
+    const next = photos[(index + 1) % photos.length];
+    const prev = photos[(index - 1 + photos.length) % photos.length];
+    setTimeout(() => { _preloadImg(next); _preloadImg(prev); }, 50);
 }
 
 function closeModal() {
