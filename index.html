@@ -452,6 +452,157 @@
         .splash-btn { display:inline-block; margin-top:2.5rem; padding:1rem 3rem; background:transparent; border:2px solid #c8a2d0; border-radius:50px; color:#c8a2d0; font-size:1rem; font-weight:600; letter-spacing:.1em; cursor:pointer; transition:all .3s; }
         .splash-btn:hover { background:#c8a2d0; color:#4a148c; transform:translateY(-3px); }
         .splash-hint { font-size:.75rem; color:rgba(255,255,255,0.3); margin-top:1rem; }
+
+        /* ══════════════════════════════════════════
+           GALERÍAS DE FOTOS
+        ══════════════════════════════════════════ */
+
+        /* Título compartido de galerías */
+        .gal-titulo {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            color: var(--lilac);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            font-weight: 400;
+        }
+        .gal-titulo span {
+            display: block;
+            font-family: 'Lato', sans-serif;
+            font-size: .72rem;
+            letter-spacing: .35em;
+            opacity: .55;
+            margin-top: 6px;
+            text-transform: uppercase;
+        }
+
+        /* ── 1. FILMSTRIP (Dron / Cinematic) ── */
+        .galeria-drone {
+            padding: 55px 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.25) 50%, transparent 100%);
+            overflow: hidden;
+        }
+        .filmstrip-wrapper {
+            overflow: hidden;
+            /* máscara para fundido en los bordes */
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+        }
+        .filmstrip {
+            display: flex;
+            gap: 14px;
+            width: max-content;
+            animation: filmscroll 55s linear infinite;
+        }
+        .filmstrip:hover { animation-play-state: paused; }
+        .filmstrip img {
+            /* altura fija pero sin recorte — object-fit:contain muestra la foto completa */
+            height: 270px;
+            width: auto;
+            object-fit: contain;
+            background: rgba(106, 27, 154, .15);
+            border-radius: 12px;
+            flex-shrink: 0;
+            box-shadow: 0 6px 24px rgba(0,0,0,.45);
+            transition: transform .4s ease, box-shadow .4s ease;
+        }
+        .filmstrip img:hover {
+            transform: scale(1.05) translateY(-4px);
+            box-shadow: 0 12px 36px rgba(200,162,208,.35);
+        }
+        @keyframes filmscroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ── 2. MASONRY REVEAL ── */
+        .galeria-sesion { padding: 55px 20px; }
+        .masonry-grid {
+            columns: 2;
+            column-gap: 10px;
+        }
+        @media (min-width: 600px) { .masonry-grid { columns: 3; } }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(45px) scale(.97);
+            transition: opacity .65s ease, transform .65s ease;
+        }
+        .masonry-item.vis {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .masonry-item img {
+            width: 100%;
+            height: auto;    /* altura natural — nunca se recorta */
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 4px 18px rgba(0,0,0,.4);
+            transition: transform .4s ease, box-shadow .4s ease;
+        }
+        .masonry-item img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(200,162,208,.3);
+        }
+
+        /* ── 3. CARD CAROUSEL ── */
+        .galeria-recuerdos { padding: 55px 0 40px; }
+        .card-scroll {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 12px 28px 20px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .card-scroll::-webkit-scrollbar { display: none; }
+        .photo-card {
+            flex-shrink: 0;
+            scroll-snap-align: center;
+            width: 76vw;
+            max-width: 360px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,.45);
+            border: 1px solid rgba(200,162,208,.18);
+            background: rgba(255,255,255,.04);
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
+        .photo-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 16px 48px rgba(200,162,208,.25);
+        }
+        .photo-card img {
+            width: 100%;
+            height: auto;    /* sin recorte — foto completa siempre */
+            display: block;
+        }
+        /* Dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+        .carousel-dots button {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(200,162,208,.3);
+            cursor: pointer;
+            padding: 0;
+            transition: background .25s, transform .25s;
+        }
+        .carousel-dots button.active {
+            background: var(--lilac);
+            transform: scale(1.4);
+        }
     </style>
 </head>
 <body>
@@ -490,6 +641,32 @@
             "Hoy comienza un nuevo capítulo lleno de sueños, ilusiones y magia. <br>
             Gracias por acompañarme en este día tan especial."
         </div>
+
+        <!-- ══ Galería 1: Filmstrip Dron ══ -->
+        <section class="galeria-drone">
+            <h2 class="gal-titulo">Mi Sesión<span>✦ La Calzada &amp; Expiatorio · 1 de Abril de 2026 ✦</span></h2>
+            <div class="filmstrip-wrapper">
+                <div class="filmstrip">
+                    <img src="img/DJI_20260331_174156_089.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174214_316.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174216_729.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174219_209.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174231_809.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174251_396.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174253_676.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174258_596.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <!-- Duplicadas para loop infinito sin corte -->
+                    <img src="img/DJI_20260331_174156_089.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174214_316.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174216_729.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174219_209.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174231_809.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174251_396.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174253_676.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                    <img src="img/DJI_20260331_174258_596.webp" alt="Sheilyn Guadalupe — Sesión de XV" loading="lazy">
+                </div>
+            </div>
+        </section>
 
         <!-- Countdown -->
         <section>
@@ -533,6 +710,23 @@
                         Juan López
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- ══ Galería 2: Masonry Sesión ══ -->
+        <section class="galeria-sesion">
+            <h2 class="gal-titulo"><i class="fas fa-camera-retro" style="font-size:.75em;opacity:.7;margin-right:8px;"></i>Galería<span>✦ Momentos únicos ✦</span></h2>
+            <div class="masonry-grid">
+                <div class="masonry-item"><img src="img/DSC_4919.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="masonry-item"><img src="img/DSC_4933.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="masonry-item"><img src="img/DSC_4934.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="masonry-item"><img src="img/DSC_4935.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="masonry-item"><img src="img/DSC_4942.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="masonry-item"><img src="img/DSC_4943.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="masonry-item"><img src="img/DSC_4949.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="masonry-item"><img src="img/DSC_4966.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="masonry-item"><img src="img/DSC_4967.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="masonry-item"><img src="img/DSC_4984.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
             </div>
         </section>
 
@@ -599,6 +793,29 @@
                     Color reservado: <span data-campo="vestimenta-colores">Lila</span>
                 </p>
             </div>
+        </section>
+
+        <!-- ══ Galería 3: Card Carousel ══ -->
+        <section class="galeria-recuerdos">
+            <h2 class="gal-titulo" style="padding:0 20px;"><i class="fas fa-images" style="font-size:.75em;opacity:.7;margin-right:8px;"></i>Recuerdos<span>✦ Desliza para ver más ✦</span></h2>
+            <div class="card-scroll" id="cardScroll">
+                <div class="photo-card"><img src="img/DSC_4997.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5000.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5007.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5010.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5024.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5025.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5026.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5036.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5041.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5046.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5095.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5099.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/DSC_5101.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/img%202.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+                <div class="photo-card"><img src="img/img1.webp" alt="Sheilyn Guadalupe" loading="lazy"></div>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
         </section>
 
         <!-- RSVP -->
@@ -808,6 +1025,52 @@
         if(pEl){pEl.textContent='🎟 '+g.pases_asignados+' '+(g.pases_asignados===1?'pase':'pases');pEl.style.display='block';}
         if(btn)btn.textContent='Ver mi Invitación';
     }).catch(function(){});
+})();
+</script>
+
+<script>
+// ── Galería 2: Masonry reveal con IntersectionObserver ──
+(function() {
+  const items = document.querySelectorAll('.masonry-item');
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('vis');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  items.forEach(function(el, i) {
+    el.style.transitionDelay = (i * 75) + 'ms';
+    obs.observe(el);
+  });
+})();
+
+// ── Galería 3: Carousel dots ──
+(function() {
+  var scroll   = document.getElementById('cardScroll');
+  var dotsWrap = document.getElementById('carouselDots');
+  if (!scroll || !dotsWrap) return;
+  var cards = scroll.querySelectorAll('.photo-card');
+  cards.forEach(function(card, i) {
+    var btn = document.createElement('button');
+    btn.setAttribute('aria-label', 'Foto ' + (i + 1));
+    if (i === 0) btn.classList.add('active');
+    btn.addEventListener('click', function() {
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+    dotsWrap.appendChild(btn);
+  });
+  var dots = dotsWrap.querySelectorAll('button');
+  scroll.addEventListener('scroll', function() {
+    var mid = scroll.scrollLeft + scroll.clientWidth / 2;
+    var closest = 0, minDist = Infinity;
+    cards.forEach(function(card, i) {
+      var dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - mid);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    dots.forEach(function(b, i) { b.classList.toggle('active', i === closest); });
+  }, { passive: true });
 })();
 </script>
 </body>
